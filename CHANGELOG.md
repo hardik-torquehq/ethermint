@@ -36,7 +36,7 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 # Changelog
 
-## [v0.16.1] - 2022-06-09
+## [v0.1.0] - 2022-06-09
 
 ### Improvements
 
