@@ -3,9 +3,9 @@ package v011
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
+	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	v010types "github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/migrations/v010/types"
 	"github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/types"
-	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
 // MigrateStore adds the MinGasPrice param with a value of 0

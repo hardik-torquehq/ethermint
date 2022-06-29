@@ -268,6 +268,9 @@ func (k *Keeper) ApplyTransaction(ctx sdk.Context, tx *ethtypes.Transaction) (*t
 			// If hooks return error, revert the whole tx.
 			res.VmError = types.ErrPostTxProcessing.Error()
 			k.Logger(ctx).Error("tx post processing failed", "error", err)
+
+			// If the tx failed in post processing hooks, we should clear the logs
+			res.Logs = nil
 		} else if commit != nil {
 			// PostTxProcessing is successful, commit the tmpCtx
 			commit()
@@ -363,11 +366,13 @@ func (k *Keeper) ApplyMessageWithConfig(ctx sdk.Context, msg core.Message, trace
 		// should have already been checked on Ante Handler
 		return nil, sdkerrors.Wrap(err, "intrinsic gas failed")
 	}
+
 	// Should check again even if it is checked on Ante Handler, because eth_call don't go through Ante Handler.
 	if msg.Gas() < intrinsicGas {
 		// eth_estimateGas will check for this exact error
 		return nil, sdkerrors.Wrap(core.ErrIntrinsicGas, "apply message")
 	}
+
 	leftoverGas := msg.Gas() - intrinsicGas
 
 	// access list preparation is moved from ante handler to here, because it's needed when `ApplyMessage` is called
@@ -398,11 +403,13 @@ func (k *Keeper) ApplyMessageWithConfig(ctx sdk.Context, msg core.Message, trace
 	if msg.Gas() < leftoverGas {
 		return nil, sdkerrors.Wrap(types.ErrGasOverflow, "apply message")
 	}
+
 	temporaryGasUsed := msg.Gas() - leftoverGas
 	refund := GasToRefund(stateDB.GetRefund(), temporaryGasUsed, refundQuotient)
 	if refund > temporaryGasUsed {
 		return nil, sdkerrors.Wrap(types.ErrGasOverflow, "apply message")
 	}
+
 	temporaryGasUsed -= refund
 
 	// EVM execution error needs to be available for the JSON-RPC client

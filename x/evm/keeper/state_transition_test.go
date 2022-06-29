@@ -5,15 +5,15 @@ import (
 	"math"
 	"math/big"
 
-	"github.com/Ambiplatforms-TORQUE/ethermint/tests"
-	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/keeper"
-	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/Ambiplatforms-TORQUE/ethermint/tests"
+	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/keeper"
+	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmtypes "github.com/tendermint/tendermint/types"
@@ -206,16 +206,6 @@ func (suite *KeeperTestSuite) TestGetEthIntrinsicGas() {
 			true,
 			params.TxGas + params.TxDataNonZeroGasFrontier*1,
 		},
-		// we are not able to test the ErrGasUintOverflow due to RAM limitation
-		// {
-		// 	"with big data size overflow",
-		// 	make([]byte, 271300000000000000),
-		// 	nil,
-		// 	1,
-		// 	false,
-		// 	false,
-		// 	0,
-		// },
 		{
 			"no data, one accesslist, not contract creation, not homestead, not istanbul",
 			nil,

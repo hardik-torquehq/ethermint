@@ -3,8 +3,8 @@ package keeper
 import (
 	"math/big"
 
-	"github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/types"
 )
 
 // GetParams returns the total set of fee market parameters.

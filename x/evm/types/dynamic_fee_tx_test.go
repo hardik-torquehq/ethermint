@@ -4,10 +4,10 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/Ambiplatforms-TORQUE/ethermint/tests"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/Ambiplatforms-TORQUE/ethermint/tests"
 	"github.com/stretchr/testify/suite"
 )
 
