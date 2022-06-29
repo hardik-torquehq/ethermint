@@ -1,6 +1,6 @@
 module github.com/Ambiplatforms-TORQUE/ethermint
 
-go 1.18
+go 1.17.6
 
 require (
 	github.com/armon/go-metrics v0.4.0
