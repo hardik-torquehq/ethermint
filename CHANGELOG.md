@@ -36,15 +36,38 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 # Changelog
 
-## [v0.1.0] - 2022-06-09
+## [v0.1.1] - 2022-06-27
+
+### State Machine Breaking
+
+* (evm) [\#1128](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1128) Clear tx logs if tx failed in post processing hooks
+* (evm) [\#1124](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1124) Reject non-replay-protected tx in `AnteHandler` to prevent replay attack
+
+### API Breaking
+
+* (rpc) [\#1126](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1126) Make some JSON-RPC APIS work for pruned nodes.
+* (rpc) [\#1143](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1143) Restrict unprotected txs on the node JSON-RPC configuration.
+* (all) [\#1137](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1137) Rename go module to `Ambiplatforms-TORQUE/ethermint`
 
 ### Improvements
 
-* (feemarket) [Ambiplatforms-TORQUE#1120](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1120) Make `min-gas-multiplier` parameter accept zero value
+* (deps) [\#1147](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1147) Bump Go version to `1.18`.
+* (feemarket) [\#1135](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1135) Set lower bound of base fee to min gas price param
+* (evm) [\#1142](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1142) Rename `RejectUnprotectedTx` to `AllowUnprotectedTxs` for consistency with go-ethereum.
 
 ### Bug Fixes
 
-* (evm) [Ambiplatforms-TORQUE#1118](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1118) Fix `Type()` `Account` method `EmptyCodeHash` comparison
+* (rpc) [\#1138](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1138) Fix GasPrice calculation with relation to `MinGasPrice`
+
+## [v0.16.1] - 2022-06-09
+
+### Improvements
+
+* (feemarket) [\#1120](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1120) Make `min-gas-multiplier` parameter accept zero value
+
+### Bug Fixes
+
+* (evm) [\#1118](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/1118) Fix `Type()` `Account` method `EmptyCodeHash` comparison
 
 ## [v0.16.0] - 2022-06-06
 
@@ -162,8 +185,8 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 ### Improvements
 
-- (rpc) [Ambiplatforms-TORQUE#979](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/979) Add configurable timeouts to http server
-- (rpc) [Ambiplatforms-TORQUE#988](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/988) json-rpc server always use local rpc client
+* (rpc) [Ambiplatforms-TORQUE#979](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/979) Add configurable timeouts to http server
+* (rpc) [Ambiplatforms-TORQUE#988](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/988) json-rpc server always use local rpc client
 
 ## [v0.10.1] - 2022-03-04
 
@@ -465,9 +488,11 @@ the Tracer type used to collect execution traces from the EVM transaction execut
 * (evm) [Ambiplatforms-TORQUE#775](https://github.com/cosmos/ethermint/issues/775) MisUse of headHash as blockHash when create EVM context.
 
 ### Features
+
 * (api) [Ambiplatforms-TORQUE#821](https://github.com/cosmos/ethermint/pull/821) Individually enable the api modules. Will be implemented in the latest version of ethermint with the upcoming stargate upgrade.
 
 ### Features
+
 * (api) [Ambiplatforms-TORQUE#825](https://github.com/cosmos/ethermint/pull/825) Individually enable the api modules. Will be implemented in the latest version of ethermint with the upcoming stargate upgrade.
 
 ## [v0.4.0] - 2020-12-15
