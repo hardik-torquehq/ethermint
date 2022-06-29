@@ -5,10 +5,6 @@ import (
 	"math/big"
 	"time"
 
-	"github.com/Ambiplatforms-TORQUE/ethermint/rpc/types"
-	"github.com/Ambiplatforms-TORQUE/ethermint/server/config"
-	ethermint "github.com/Ambiplatforms-TORQUE/ethermint/types"
-	evmtypes "github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/server"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -17,6 +13,10 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum/rpc"
+	"github.com/Ambiplatforms-TORQUE/ethermint/rpc/types"
+	"github.com/Ambiplatforms-TORQUE/ethermint/server/config"
+	ethermint "github.com/Ambiplatforms-TORQUE/ethermint/types"
+	evmtypes "github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmrpctypes "github.com/tendermint/tendermint/rpc/core/types"
 )
@@ -44,6 +44,7 @@ type EVMBackend interface {
 	RPCGasCap() uint64            // global gas cap for eth_call over rpc: DoS protection
 	RPCEVMTimeout() time.Duration // global timeout for eth_call over rpc: DoS protection
 	RPCTxFeeCap() float64         // RPCTxFeeCap is the global transaction fee(price * gaslimit) cap for send-transaction variants. The unit is ether.
+	UnprotectedAllowed() bool
 
 	RPCMinGasPrice() int64
 	SuggestGasTipCap(baseFee *big.Int) (*big.Int, error)
@@ -51,6 +52,7 @@ type EVMBackend interface {
 	// Blockchain API
 	BlockNumber() (hexutil.Uint64, error)
 	GetTendermintBlockByNumber(blockNum types.BlockNumber) (*tmrpctypes.ResultBlock, error)
+	GetTendermintBlockResultByNumber(height *int64) (*tmrpctypes.ResultBlockResults, error)
 	GetTendermintBlockByHash(blockHash common.Hash) (*tmrpctypes.ResultBlock, error)
 	GetBlockByNumber(blockNum types.BlockNumber, fullTx bool) (map[string]interface{}, error)
 	GetBlockByHash(hash common.Hash, fullTx bool) (map[string]interface{}, error)
@@ -67,7 +69,7 @@ type EVMBackend interface {
 	GetTxByEthHash(txHash common.Hash) (*tmrpctypes.ResultTx, error)
 	GetTxByTxIndex(height int64, txIndex uint) (*tmrpctypes.ResultTx, error)
 	EstimateGas(args evmtypes.TransactionArgs, blockNrOptional *types.BlockNumber) (hexutil.Uint64, error)
-	BaseFee(height int64) (*big.Int, error)
+	BaseFee(blockRes *tmrpctypes.ResultBlockResults) (*big.Int, error)
 	GlobalMinGasPrice() (sdk.Dec, error)
 
 	// Fee API
@@ -86,16 +88,17 @@ var _ BackendI = (*Backend)(nil)
 
 // Backend implements the BackendI interface
 type Backend struct {
-	ctx         context.Context
-	clientCtx   client.Context
-	queryClient *types.QueryClient // gRPC query client
-	logger      log.Logger
-	chainID     *big.Int
-	cfg         config.Config
+	ctx                 context.Context
+	clientCtx           client.Context
+	queryClient         *types.QueryClient // gRPC query client
+	logger              log.Logger
+	chainID             *big.Int
+	cfg                 config.Config
+	allowUnprotectedTxs bool
 }
 
 // NewBackend creates a new Backend instance for cosmos and ethereum namespaces
-func NewBackend(ctx *server.Context, logger log.Logger, clientCtx client.Context) *Backend {
+func NewBackend(ctx *server.Context, logger log.Logger, clientCtx client.Context, allowUnprotectedTxs bool) *Backend {
 	chainID, err := ethermint.ParseChainID(clientCtx.ChainID)
 	if err != nil {
 		panic(err)
@@ -104,11 +107,12 @@ func NewBackend(ctx *server.Context, logger log.Logger, clientCtx client.Context
 	appConf := config.GetConfig(ctx.Viper)
 
 	return &Backend{
-		ctx:         context.Background(),
-		clientCtx:   clientCtx,
-		queryClient: types.NewQueryClient(clientCtx),
-		logger:      logger.With("module", "backend"),
-		chainID:     chainID,
-		cfg:         appConf,
+		ctx:                 context.Background(),
+		clientCtx:           clientCtx,
+		queryClient:         types.NewQueryClient(clientCtx),
+		logger:              logger.With("module", "backend"),
+		chainID:             chainID,
+		cfg:                 appConf,
+		allowUnprotectedTxs: allowUnprotectedTxs,
 	}
 }

@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Ambiplatforms-TORQUE/ethermint/rpc/types"
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/Ambiplatforms-TORQUE/ethermint/rpc/types"
 
 	"github.com/tendermint/tendermint/libs/log"
 
@@ -28,9 +28,11 @@ type Backend interface {
 	GetBlockByNumber(blockNum types.BlockNumber, fullTx bool) (map[string]interface{}, error)
 	HeaderByNumber(blockNum types.BlockNumber) (*ethtypes.Header, error)
 	HeaderByHash(blockHash common.Hash) (*ethtypes.Header, error)
+	GetTendermintBlockByHash(hash common.Hash) (*coretypes.ResultBlock, error)
+	GetTendermintBlockResultByNumber(height *int64) (*coretypes.ResultBlockResults, error)
 	GetLogs(blockHash common.Hash) ([][]*ethtypes.Log, error)
 	GetLogsByHeight(*int64) ([][]*ethtypes.Log, error)
-	BlockBloom(height *int64) (ethtypes.Bloom, error)
+	BlockBloom(blockRes *coretypes.ResultBlockResults) (ethtypes.Bloom, error)
 
 	BloomStatus() (uint64, uint64)
 
