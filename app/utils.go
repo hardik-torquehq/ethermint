@@ -16,12 +16,12 @@ import (
 	ethermint "github.com/Ambiplatforms-TORQUE/ethermint/types"
 	evmtypes "github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 
+	"github.com/Ambiplatforms-TORQUE/ethermint/crypto/ethsecp256k1"
 	"github.com/cosmos/cosmos-sdk/crypto/keys/ed25519"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/Ambiplatforms-TORQUE/ethermint/crypto/ethsecp256k1"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
@@ -135,7 +135,7 @@ func StateFn(cdc codec.JSONCodec, simManager *module.SimulationManager) simtypes
 
 		stakingStateBz, ok := rawState[stakingtypes.ModuleName]
 		if !ok {
-			panic("staking genesis state is missing")
+			panic("evm genesis state is missing")
 		}
 
 		stakingState := new(stakingtypes.GenesisState)
