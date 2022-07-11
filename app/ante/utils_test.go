@@ -6,13 +6,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Ambiplatforms-TORQUE/ethermint/ethereum/eip712"
+	"github.com/Ambiplatforms-TORQUE/ethermint/types"
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/x/auth/legacy/legacytx"
 	types2 "github.com/cosmos/cosmos-sdk/x/bank/types"
 	types3 "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/Ambiplatforms-TORQUE/ethermint/ethereum/eip712"
-	"github.com/Ambiplatforms-TORQUE/ethermint/types"
 
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
@@ -81,7 +81,8 @@ func (suite *AnteTestSuite) SetupTest() {
 			maxInt := sdk.NewInt(math.MaxInt64)
 			evmGenesis.Params.ChainConfig.LondonBlock = &maxInt
 			evmGenesis.Params.ChainConfig.ArrowGlacierBlock = &maxInt
-			evmGenesis.Params.ChainConfig.MergeForkBlock = &maxInt
+			evmGenesis.Params.ChainConfig.GrayGlacierBlock = &maxInt
+			evmGenesis.Params.ChainConfig.MergeNetsplitBlock = &maxInt
 		}
 		if suite.evmParamsOption != nil {
 			suite.evmParamsOption(&evmGenesis.Params)

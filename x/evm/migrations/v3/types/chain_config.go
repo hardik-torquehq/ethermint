@@ -4,13 +4,13 @@ import (
 	"math/big"
 	"strings"
 
+	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/params"
-
-	"github.com/Ambiplatforms-TORQUE/ethermint/x/evm/types"
 )
 
 // EthereumConfig returns an Ethereum ChainConfig for EVM state transitions.
@@ -33,7 +33,6 @@ func (cc ChainConfig) EthereumConfig(chainID *big.Int) *params.ChainConfig {
 		BerlinBlock:             getBlockValue(cc.BerlinBlock),
 		LondonBlock:             getBlockValue(cc.LondonBlock),
 		ArrowGlacierBlock:       getBlockValue(cc.ArrowGlacierBlock),
-		MergeNetsplitBlock:      getBlockValue(cc.MergeForkBlock),
 		TerminalTotalDifficulty: nil,
 		Ethash:                  nil,
 		Clique:                  nil,
