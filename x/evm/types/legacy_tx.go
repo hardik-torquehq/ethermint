@@ -3,10 +3,10 @@ package types
 import (
 	"math/big"
 
+	"github.com/Ambiplatforms-TORQUE/ethermint/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
-	"github.com/Ambiplatforms-TORQUE/ethermint/types"
 )
 
 func newLegacyTx(tx *ethtypes.Transaction) (*LegacyTx, error) {

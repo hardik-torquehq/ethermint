@@ -1,9 +1,9 @@
 package keeper_test
 
 import (
+	"github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	ethparams "github.com/ethereum/go-ethereum/params"
-	"github.com/Ambiplatforms-TORQUE/ethermint/x/feemarket/types"
 )
 
 func (suite *KeeperTestSuite) TestQueryParams() {

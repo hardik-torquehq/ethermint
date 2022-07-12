@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/Ambiplatforms-TORQUE/ethermint/rpc/types"
+	"github.com/cosmos/cosmos-sdk/client"
 
 	"github.com/tendermint/tendermint/libs/log"
 
