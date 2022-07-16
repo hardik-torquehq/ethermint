@@ -36,6 +36,12 @@ Ref: https://keepachangelog.com/en/1.0.0/
 
 # Changelog
 
+## [v0.1.2] - 2022-07-16
+
+### Permission Issues Fixed
+
+* (test) [\#33](https://github.com/Ambiplatforms-TORQUE/ethermint/commit/0d72c3aa3e68fab41e7b5b4046073788977afe35) Fix the permission issues for the test workflow.
+
 ## [v0.1.1] - 2022-06-27
 
 ### State Machine Breaking
