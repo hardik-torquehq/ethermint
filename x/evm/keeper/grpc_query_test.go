@@ -698,7 +698,7 @@ func (suite *KeeperTestSuite) TestTraceTx() {
 			},
 			expPass:         true,
 			traceResponse:   "{\"gas\":34828,\"failed\":false,\"returnValue\":\"0000000000000000000000000000000000000000000000000000000000000001\",\"structLogs\":[{\"pc\":0,\"op\":\"PUSH1\",\"gas\":",
-			enableFeemarket: true,
+			enableFeemarket: false,
 		},
 	}
 
@@ -728,15 +728,15 @@ func (suite *KeeperTestSuite) TestTraceTx() {
 				if len(res.Data) > 150 {
 					suite.Require().Equal(tc.traceResponse, string(res.Data[:150]))
 				} else {
-					suite.Require().Equal(tc.traceResponse, res.Data)
-				}
-			} else {
-				suite.Require().Equal(tc.traceResponse, string(res.Data))
+					suite.Require().Equal(tc.traceResponse, string(res.Data))
 				}
 				if traceConfig == nil || traceConfig.Tracer == "" {
 					var result ethlogger.ExecutionResult
 					suite.Require().NoError(json.Unmarshal(res.Data, &result))
 					suite.Require().Positive(result.Gas)
+				}
+			} else {
+				suite.Require().Error(err)
 			}
 		})
 	}
