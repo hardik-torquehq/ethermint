@@ -585,6 +585,8 @@ func NewEthermintApp(
 		panic(err)
 	}
 	app.SetAnteHandler(anteHandler)
+	app.SetEndBlocker(app.EndBlocker)
+	
 	if loadLatest {
 		if err := app.LoadLatestVersion(); err != nil {
 			tmos.Exit(err.Error())
