@@ -674,7 +674,7 @@ func (suite *KeeperTestSuite) TestTraceTx() {
 				predecessors = []*types.MsgEthereumTx{}
 			},
 			expPass:         true,
-			traceResponse:   [],
+			traceResponse:   "[]",
 			enableFeemarket: true,
 		},
 		{
