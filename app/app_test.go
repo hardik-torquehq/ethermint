@@ -16,7 +16,24 @@ import (
 
 func TestEthermintAppExport(t *testing.T) {
 	db := dbm.NewMemDB()
+<<<<<<< HEAD
 	app := SetupWithDB(false, nil, db)
+=======
+	app := NewEthermintApp(log.NewTMLogger(log.NewSyncWriter(os.Stdout)), db, nil, true, map[int64]bool{}, DefaultNodeHome, 0, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+
+	genesisState := NewDefaultGenesisState()
+	stateBytes, err := json.MarshalIndent(genesisState, "", "  ")
+	require.NoError(t, err)
+
+	// Initialize the chain
+	app.InitChain(
+		abci.RequestInitChain{
+			ChainId:       "ethermint_1000-1",
+			Validators:    []abci.ValidatorUpdate{},
+			AppStateBytes: stateBytes,
+		},
+	)
+>>>>>>> updateChain
 	app.Commit()
 
 	// Making a new app object with the db, so that initchain hasn't been called
