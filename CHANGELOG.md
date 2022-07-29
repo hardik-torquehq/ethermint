@@ -256,7 +256,7 @@ Ref: https://keepachangelog.com/en/1.0.0/
 * (rpc) [Ambiplatforms-TORQUE#865](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/865) Fix RPC Filter parameters being ignored
 * (evm) [Ambiplatforms-TORQUE#871](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/871) Set correct nonce in `EthCall` and `EstimateGas` grpc query.
 * (rpc) [Ambiplatforms-TORQUE#878](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/878) Workaround to make GetBlock RPC api report correct block gas used.
-* (rpc) [Ambiplatforms-TORQUE#900](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/900) `newPendingTransactions` filter return ethereum tx hash.
+* (rpc) [Ambiplatforms-TORQUE#100](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/100) `newPendingTransactions` filter return ethereum tx hash.
 * (rpc) [Ambiplatforms-TORQUE#933](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/933) Fix `newPendingTransactions` subscription deadlock when a Websocket client exits without unsubscribing and the node errors.
 * (evm) [Ambiplatforms-TORQUE#932](https://github.com/Ambiplatforms-TORQUE/ethermint/pull/932) Fix base fee check logic in state transition.
 

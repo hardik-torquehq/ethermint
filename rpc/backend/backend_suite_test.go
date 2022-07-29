@@ -30,7 +30,7 @@ func TestBackendTestSuite(t *testing.T) {
 func (suite *BackendTestSuite) SetupTest() {
 	ctx := server.NewDefaultContext()
 	ctx.Viper.Set("telemetry.global-labels", []interface{}{})
-	clientCtx := client.Context{}.WithChainID("ethermint_9000-1").WithHeight(1)
+	clientCtx := client.Context{}.WithChainID("ethermint_1000-1").WithHeight(1)
 	allowUnprotectedTxs := false
 
 	suite.backend = NewBackend(ctx, ctx.Logger, clientCtx, allowUnprotectedTxs)
